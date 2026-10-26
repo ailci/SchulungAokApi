@@ -13,7 +13,8 @@ var app = builder.Build(); //###################################################
 //### STARTBEISPIEL ##############################################
 //app.Use(async (context, next) =>
 //{
-//    await context.Response.WriteAsync("Erste Middleware\n");
+//    var userAgent = context.Request.Headers["User-Agent"][0].ToLower();
+//    await context.Response.WriteAsync($"Erste Middleware {userAgent}\n");
 //    await next();
 //    await context.Response.WriteAsync("Erste Back Middleware\n");
 //});
