@@ -1,3 +1,4 @@
+using Api.Middleware;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,8 @@ var app = builder.Build(); //###################################################
 //});
 
 //#################################################
+
+//app.UseBrowserAllowedMiddleware(Browser.Chrome, Browser.Edge); //Custom Middleware mit Browser Whitelist
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
