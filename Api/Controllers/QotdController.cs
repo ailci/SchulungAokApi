@@ -1,4 +1,5 @@
-﻿using Application.Dto.Qotd;
+﻿using Application.Contracts.Services;
+using Application.Dto.Qotd;
 using Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,23 +12,22 @@ namespace Api.Controllers;
 [ApiController]
 public class QotdController : ControllerBase
 {
-    private ILogger<QotdController> _logger;
-    private readonly QotdDbContext _context;
+    private readonly ILogger<QotdController> _logger;
+    private readonly IQotdService _qotdService;
 
-    public QotdController(QotdDbContext context, ILogger<QotdController> logger)
+    public QotdController(ILogger<QotdController> logger, IQotdService qotdService)
     {
-        _context = context;
         _logger = logger;
+        _qotdService = qotdService;
     }
 
     #region GET
 
-    [HttpGet]  // localhost:7113/api/qotd
+    [HttpGet]  //localhost:7113/api/qotd
     public async Task<IActionResult> GetQuoteOfTheDay()
     {
-       
-
-        return Ok();
+        var qotdDto = await _qotdService.GetQuoteOfTheDayAsync();
+        return Ok(qotdDto);
     }
 
     #endregion
