@@ -12,9 +12,9 @@ builder.Services.AddControllers(); // WebAPI
 builder.Services.AddOpenApi(); // Dokumentation aktiv
 
 
-//Db
+//Db ######################
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                       throw new InvalidOperationException("ConnctionString nicht vorhanden");
+                       throw new InvalidOperationException("ConnectionString nicht vorhanden");
 builder.Services.AddDbContext<QotdDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
