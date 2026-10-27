@@ -4,6 +4,8 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="Api/Api.csproj" />
+    <Project Path="Application/Application.csproj" Id="f49acb6b-2bd2-4e65-9f99-ba58450b563a" />
     <Project Path="Domain/Domain.csproj" Id="e75b35de-db81-41e4-a9d1-22de9e0605a4" />
+    <Project Path="Persistence/Persistence.csproj" Id="01327a23-67f6-43ae-92b8-8682f76c4a3f" />
   </Folder>
 </Solution>

@@ -41,7 +41,9 @@ internal class Funcs
     //3. Lambda Expression
     public Funcs()
     {
-        Func<string, string> convert = (input) => input.ToUpper();
+        Func<string, string> convert = (input) => input.ToUpper(); //Mit Rückgabe (letzter Parameter)
+        Action<string> act = (input) => Console.WriteLine(input);  // Ohne Rückgabe
+        
         string name = "ali";
         Console.WriteLine(convert(name));
         Console.ReadLine();

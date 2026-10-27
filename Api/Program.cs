@@ -1,4 +1,6 @@
 using Api.Middleware;
+using Microsoft.EntityFrameworkCore;
+using Persistence;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers(); // WebAPI
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(); // Dokumentation aktiv
+
+
+//Db
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                       throw new InvalidOperationException("ConnctionString nicht vorhanden");
+builder.Services.AddDbContext<QotdDbContext>(options =>
+{
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build(); //########################################################
 
