@@ -1,3 +1,4 @@
+using Api.Controllers;
 using Api.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -19,6 +20,9 @@ builder.Services.AddDbContext<QotdDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+//DI
+
 
 var app = builder.Build(); //########################################################
 
