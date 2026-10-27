@@ -4,5 +4,6 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="Api/Api.csproj" />
+    <Project Path="Domain/Domain.csproj" Id="e75b35de-db81-41e4-a9d1-22de9e0605a4" />
   </Folder>
 </Solution>

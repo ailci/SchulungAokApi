@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -12,7 +13,9 @@ public class QotdController : ControllerBase
     [HttpGet]  // localhost:7113/api/qotd
     public IActionResult GetQuoteOfTheDay()
     {
-        return Ok("is ok");
+       
+
+        return Ok();
     }
 
     #endregion
