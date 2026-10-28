@@ -15,8 +15,9 @@ public class QotdService(ILogger<QotdService> logger, QotdDbContext context) : I
         logger.LogInformation($"{nameof(GetQuoteOfTheDayAsync)} aufgerufen...");
 
         var quotes = await context.Quotes.Include(c => c.Author).ToListAsync();
-        var randomQuote = quotes.Shuffle().First();
+        var randomQuote = quotes.Shuffle().First(); //Zufallsspruch
 
+        //Manuelles Mapping
         var qotdDto = new QuoteOfTheDayDto
         {
             Id = randomQuote.Id,
