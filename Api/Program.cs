@@ -25,6 +25,7 @@ builder.Services.AddDbContext<QotdDbContext>(options =>
 
 //DI
 builder.Services.AddScoped<IQotdService, QotdService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 var app = builder.Build(); //########################################################
 

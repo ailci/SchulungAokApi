@@ -9,7 +9,6 @@ using Microsoft.Extensions.Logging;
 
 namespace Persistence.Services;
 
-//TODO: Implementierung via DbContext. Registrierung im Kühlschrank nicht vergessen
 public class AuthorService(ILogger<AuthorService> logger, QotdDbContext context) : IAuthorService
 {
     public async Task<IEnumerable<AuthorDto>> GetAuthorsAsync()
