@@ -23,5 +23,15 @@ public class AuthorsController(ILogger<AuthorsController> logger, IAuthorService
         return Ok(authorDtoList);
     }
 
+    [HttpGet("{authorId:guid}")]  //localhost:7113/api/authors/{authorId}
+    public async Task<IActionResult> GetAuthor(Guid authorId)
+    {
+        logger.LogInformation($"{nameof(GetAuthor)} ## Author-Id: {authorId} aufgerufen...");
+
+        var authorDto = await authorService.GetAuthorAsync(authorId);
+
+        return Ok(authorDto);
+    }
+
     #endregion
 }
