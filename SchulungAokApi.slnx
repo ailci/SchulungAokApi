@@ -7,5 +7,6 @@
     <Project Path="Application/Application.csproj" Id="f49acb6b-2bd2-4e65-9f99-ba58450b563a" />
     <Project Path="Domain/Domain.csproj" Id="e75b35de-db81-41e4-a9d1-22de9e0605a4" />
     <Project Path="Persistence/Persistence.csproj" Id="01327a23-67f6-43ae-92b8-8682f76c4a3f" />
+    <Project Path="UI.Client/UI.Client.csproj" Id="e439c0a3-b509-4720-8123-d9f22a9de2e3" />
   </Folder>
 </Solution>
