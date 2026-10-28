@@ -1,4 +1,5 @@
 ﻿using Application.Contracts.Services;
+using Application.Dto.Author;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,9 @@ public class AuthorsController(ILogger<AuthorsController> logger, IAuthorService
     #region GET
 
     [HttpGet(Name = "GetAuthors")]  //localhost:7113/api/authors
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(AuthorDto),StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAuthors()
     {
         logger.LogInformation($"{nameof(GetAuthors)} aufgerufen...");

@@ -23,11 +23,19 @@ public class QotdController : ControllerBase
 
     #region GET
 
+    /// <summary>
+    /// Retrieves the quote of the day.
+    /// </summary>
+    /// <returns>A task that represents the asynchronous operation and contains the quote of the day, or an appropriate HTTP
+    /// error response.</returns>
     [HttpGet]  //localhost:7113/api/qotd
-    public async Task<IActionResult> GetQuoteOfTheDay()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<ActionResult<QuoteOfTheDayDto>> GetQuoteOfTheDay()
     {
         var qotdDto = await _qotdService.GetQuoteOfTheDayAsync();
-        return Ok(qotdDto);
+        return qotdDto;
     }
 
     #endregion
