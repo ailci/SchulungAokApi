@@ -4,6 +4,7 @@ using System.Text;
 using Application.Contracts.Services;
 using Application.Dto.Author;
 using Domain.Entities;
+using Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -53,23 +54,28 @@ public class AuthorService(ILogger<AuthorService> logger, QotdDbContext context)
         //var author = context.Authors.Where(author => author.Id == authorId);
         //var author = await context.Authors.FirstOrDefaultAsync(author => author.Id == authorId);
         //var author = await context.Authors.SingleOrDefaultAsync(author => author.Id == authorId);
-        var author = await context.Authors.FindAsync(authorId); //Suchen mit Primärschlüssel
-
+        //var author = await context.Authors.FindAsync(authorId); //Suchen mit Primärschlüssel
         //if (author is null) throw new Exception("Author nicht gefunden");
+        //if (author is null) return null;
 
-        if (author is not null)
+        var author = await GetAuthorAndCheckIfItExists(authorId);
+
+        return new AuthorDto
         {
-            return new AuthorDto
-            {
-                Id = author.Id,
-                Name = author.Name,
-                Description = author.Description,
-                BirthDate = author.BirthDate,
-                Photo = author.Photo,
-                PhotoMimeType = author.PhotoMimeType
-            };
-        }
+            Id = author.Id,
+            Name = author.Name,
+            Description = author.Description,
+            BirthDate = author.BirthDate,
+            Photo = author.Photo,
+            PhotoMimeType = author.PhotoMimeType
+        };
+    }
 
-        return null;
+    private async Task<Author> GetAuthorAndCheckIfItExists(Guid authorId)
+    {
+        var author = await context.Authors.FindAsync(authorId);
+        if (author is null) throw new AuthorNotFoundException(authorId);
+
+        return author;
     }
 }

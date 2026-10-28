@@ -30,6 +30,11 @@ public class AuthorsController(ILogger<AuthorsController> logger, IAuthorService
 
         var authorDto = await authorService.GetAuthorAsync(authorId);
 
+        //if (authorDto is null)
+        //{
+        //    return NotFound();
+        //}
+
         return Ok(authorDto);
     }
 

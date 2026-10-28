@@ -1,4 +1,5 @@
 using Api.Controllers;
+using Api.Handler;
 using Api.Middleware;
 using Application.Contracts.Services;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers(); // WebAPI
+builder.Services.AddControllers(options =>
+{
+
+}); // WebAPI
+
+//Fehlerbehandlung
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(); // Dokumentation aktiv
 
@@ -50,6 +59,8 @@ var app = builder.Build(); //###################################################
 //#################################################
 
 //app.UseBrowserAllowedMiddleware(Browser.Chrome, Browser.Edge); //Custom Middleware mit Browser Whitelist
+
+app.UseExceptionHandler(); //Aktivierung des Globalen Exception Handlers
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
