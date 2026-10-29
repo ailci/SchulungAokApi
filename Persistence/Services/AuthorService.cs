@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Application.Contracts.Services;
 using Application.Dto.Author;
+using Application.Utilities;
 using Domain.Entities;
 using Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -59,6 +61,36 @@ public class AuthorService(ILogger<AuthorService> logger, QotdDbContext context)
         //if (author is null) return null;
 
         var author = await GetAuthorAndCheckIfItExists(authorId);
+
+        return new AuthorDto
+        {
+            Id = author.Id,
+            Name = author.Name,
+            Description = author.Description,
+            BirthDate = author.BirthDate,
+            Photo = author.Photo,
+            PhotoMimeType = author.PhotoMimeType
+        };
+    }
+
+    public async Task<AuthorDto> CreateAuthorAsync(AuthorForCreateDto authorForCreateDto)
+    {
+        logger.LogInformation($"{nameof(CreateAuthorAsync)} mit AuthorForCreateDto: {authorForCreateDto.LogAsJson()} aufgerufen...");
+
+        // Dto zu Entität umwandeln
+        var author = new Author
+        {
+            Name = authorForCreateDto.Name,
+            Description = authorForCreateDto.Description,
+            BirthDate = authorForCreateDto.BirthDate
+        };
+
+        if (authorForCreateDto.Photo is not null)
+        { //TODO: Foto
+        }
+
+        context.Authors.Add(author);
+        if(await context.SaveChangesAsync() != 1) throw new Exception("Author konnte nicht erstellt werden"); //TODO: GlobalExceptionHandler
 
         return new AuthorDto
         {

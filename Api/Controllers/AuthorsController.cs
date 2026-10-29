@@ -23,7 +23,7 @@ public class AuthorsController(ILogger<AuthorsController> logger, IAuthorService
         return Ok(authorDtoList);
     }
 
-    [HttpGet("{authorId:guid}")]  //localhost:7113/api/authors/{authorId}
+    [HttpGet("{authorId:guid}", Name = "GetAuthor")]  //localhost:7113/api/authors/{authorId}
     public async Task<IActionResult> GetAuthor(Guid authorId)
     {
         logger.LogInformation($"{nameof(GetAuthor)} ## Author-Id: {authorId} aufgerufen...");
@@ -36,6 +36,19 @@ public class AuthorsController(ILogger<AuthorsController> logger, IAuthorService
         //}
 
         return Ok(authorDto);
+    }
+
+    #endregion
+
+    #region POST
+
+    [HttpPost]
+    public async Task<IActionResult> CreateAuthor([FromBody] AuthorForCreateDto authorForCreateDto)
+    {
+        logger.LogInformation($"{nameof(CreateAuthor)} aufgerufen...");
+        var createdAuthor = await authorService.CreateAuthorAsync(authorForCreateDto);
+
+        return CreatedAtRoute("GetAuthor", new { authorId = createdAuthor.Id }, createdAuthor);
     }
 
     #endregion
