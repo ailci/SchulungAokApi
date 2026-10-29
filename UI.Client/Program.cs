@@ -1,3 +1,6 @@
+using Application.Contracts.Services;
+using UI.Client.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +12,9 @@ builder.Services.AddHttpClient("qotdapi", client =>
     client.BaseAddress = new Uri("https://localhost:7113");
     client.DefaultRequestHeaders.Add("Accept","application/json");
 });
+
+//DI
+builder.Services.AddScoped<IQotdService, QotdApiService>();
 
 var app = builder.Build();
 
