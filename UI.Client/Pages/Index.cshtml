@@ -16,7 +16,16 @@ else
             <div class="p-2 bg-light rounded-3">
                 <h5 class="display-6 py-3">Spruch des Tages</h5>
                 <p class="text-center">
-                    <!-- Bild anzeigen -->
+                    <!-- Bild anzeigen  -->
+                    @if(Model.QotdDto.AuthorPhoto is not null)
+                    {
+                        <!-- Data-URI: src="data:MIMETYPE;base64,NUTZDATEN" -->
+                        <img width="150" src="data:@Model.QotdDto.AuthorPhotoMimeType;base64,@Convert.ToBase64String(Model.QotdDto.AuthorPhoto)" />
+                    }
+                    else
+                    {
+                        <img width="150" src="https://placehold.co/150" />
+                    }
                 </p>
                 <blockquote class="text-center">
                     <p class="lead fw-bold" id="quote">@Model.QotdDto.QuoteText</p>
