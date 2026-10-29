@@ -34,6 +34,7 @@ public class QotdController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ActionResult<QuoteOfTheDayDto>> GetQuoteOfTheDay()
     {
+        _logger.LogInformation($"{nameof(GetQuoteOfTheDay)} aufgerufen...");
         var qotdDto = await _qotdService.GetQuoteOfTheDayAsync();
         return qotdDto;
     }

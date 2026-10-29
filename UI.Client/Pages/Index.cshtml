@@ -3,25 +3,34 @@
 @{
     ViewData["Title"] = "Home page";
 }
+<!-- Codebehind (IndexModel) => alias @Model -->
 
-<div class="container">
-    <div class="text-center">
-        <div class="p-2 bg-light rounded-3">
-            <h5 class="display-6 py-3">Spruch des Tages</h5>
-            <p class="text-center">
-               <!-- Bild anzeigen -->
-            </p>
-            <blockquote class="text-center">
-                <p class="lead fw-bold" id="quote"><!-- QuoteText --></p>
-                <cite>
-                    <span><!-- AuthorName--> - <!-- AuthorDescription --></span>
-                    <br />
-                    <span>
-                        <!-- AuthorBirthDate -->
-                    </span>
-                </cite>
-            </blockquote>
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage) || Model.QotdDto is null)
+{
+    <div class="alert alert-danger" role="alert">@Model.ErrorMessage</div>
+}
+else
+{
+    <div class="container">
+        <div class="text-center">
+            <div class="p-2 bg-light rounded-3">
+                <h5 class="display-6 py-3">Spruch des Tages</h5>
+                <p class="text-center">
+                    <!-- Bild anzeigen -->
+                </p>
+                <blockquote class="text-center">
+                    <p class="lead fw-bold" id="quote">@Model.QotdDto.QuoteText</p>
+                    <cite>
+                        <span>@Model.QotdDto.AuthorName - @Model.QotdDto.AuthorDescription</span>
+                        <br />
+                        <span>
+                            @(Model.QotdDto.AuthorBirthDate is not null ? Model.QotdDto.AuthorBirthDate.Value.ToShortDateString() : "k.A.")
+                        </span>
+                    </cite>
+                </blockquote>
+            </div>
         </div>
     </div>
-</div>
+}
+
 
